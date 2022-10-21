@@ -8,61 +8,61 @@ const shaking = keyframes`
     transform: rotate(0) translateX(0);
   }
   5% {
-    transform: rotate(20deg) translateX(-10px);
+    transform: rotate(10deg) translateX(-10px);
   }
   10% {
-    transform: rotate(-20deg) translateX(10px);
+    transform: rotate(-10deg) translateX(10px);
   }
   15% {
-    transform: rotate(20deg) translateX(-10px);
+    transform: rotate(10deg) translateX(-10px);
   }
   20% {
-    transform: rotate(-20deg) translateX(10px);
+    transform: rotate(-10deg) translateX(10px);
   }
   25% {
-    transform: rotate(20deg) translateX(-10px);
+    transform: rotate(10deg) translateX(-10px);
   }
   30% {
-    transform: rotate(-20deg) translateX(10px);
+    transform: rotate(-10deg) translateX(10px);
   }
   35% {
-    transform: rotate(20deg) translateX(-10px);
+    transform: rotate(10deg) translateX(-10px);
   }
   40% {
-    transform: rotate(-20deg) translateX(10px);
+    transform: rotate(-10deg) translateX(10px);
   }
   45% {
-    transform: rotate(20deg) translateX(-10px);
+    transform: rotate(10deg) translateX(-10px);
   }
   50% {
-    transform: rotate(-20deg) translateX(10px);
+    transform: rotate(-10deg) translateX(10px);
   }
   55% {
-    transform: rotate(20deg) translateX(-10px);
+    transform: rotate(10deg) translateX(-10px);
   }
   60% {
-    transform: rotate(-20deg) translateX(10px);
+    transform: rotate(-10deg) translateX(10px);
   }
   65% {
-    transform: rotate(20deg) translateX(-10px);
+    transform: rotate(10deg) translateX(-10px);
   }
   70% {
-    transform: rotate(-20deg) translateX(10px);
+    transform: rotate(-10deg) translateX(10px);
   }
   75% {
-    transform: rotate(20deg) translateX(-10px);
+    transform: rotate(10deg) translateX(-10px);
   }
   80% {
-    transform: rotate(-20deg) translateX(10px);
+    transform: rotate(-10deg) translateX(10px);
   }
   85% {
-    transform: rotate(20deg) translateX(-10px);
+    transform: rotate(10deg) translateX(-10px);
   }
   90% {
-    transform: rotate(-20deg) translateX(10px);
+    transform: rotate(-10deg) translateX(10px);
   }
   95% {
-    transform: rotate(20deg) translateX(-10px);
+    transform: rotate(10deg) translateX(-10px);
   }
   100% {
     transform: rotate(0) translateX(0);
@@ -83,9 +83,14 @@ const AddRestaurantBtn = styled.button`
   font-weight: bold;
   font-size: 13px;
   color: #FE724C;
+  transition: background-color .2s;
   position: absolute;
   top: 23px;
   right: 22px;
+
+  &:active {
+    background-color: rgba(0, 0, 0, .05);
+  }
 `
 
 const ContentBox = styled.div`
@@ -98,6 +103,11 @@ const ContentClickableArea = styled.button`
   width: 100%;
   padding: 40px 0;
   border-radius: 8px;
+  transition: background-color .2s;
+
+  &:active {
+    background-color: rgba(0, 0, 0, .05);
+  }
 `
 
 const ContentIcon = styled(Icon)`
@@ -106,7 +116,7 @@ const ContentIcon = styled(Icon)`
   margin: 0 auto 20px;
   font-size: 60px;
   color: #FE724C;
-  transform-origin: 50% 100%;
+  transform-origin: 50% 150%;
   display: block;
 
   &.shaking {

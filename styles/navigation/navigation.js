@@ -16,8 +16,13 @@ const StyledLink = styled.a`
   transition: color .2s, background-color .2s;
   justify-content: center;
   align-items: center;
+  transition: background-color .2s;
   flex: 1;
   display: flex;
+
+  &:active {
+    background-color: rgba(0, 0, 0, .05);
+  }
 
   &:not(.active) .icon.outlined {
     color: #FFF;
