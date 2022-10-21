@@ -59,9 +59,9 @@ const Navigation = () => {
             key={nav.path}
             passHref
           >
-            <StyledLink className={
-              nav.isActive ? 'active' : ''
-            }>
+            <StyledLink
+              className={nav.isActive && 'active'}
+            >
               <StyledIcon icon={nav.icon}/>
             </StyledLink>
           </Link>
