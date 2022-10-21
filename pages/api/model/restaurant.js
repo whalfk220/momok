@@ -85,10 +85,16 @@ export class Restaurant{
         res.errMsg = "달걀을 모두 사용하였습니다.";
         res.success = false;
       }else{
+        let where = "";
+        let params = [];
+        if(userInfo.spicy != null){
+          where += " and spicy = ?";
+          params.push(userInfo.spicy);
+        }
         const newEgg = userInfo.egg - 1;
         await this.updateUserEgg(idx,newEgg);
-        const sql = `select r.idx,r.name,r.type,r.popular_menu ,r.address  from restaurant r where spicy = ?;`;
-        const [rows,fields] = await pool.query(sql,[userInfo.spicy]);
+        const sql = `select r.idx,r.name,r.type,r.popular_menu ,r.address  from restaurant r where 1=1 ${where}`;
+        const [rows,fields] = await pool.query(sql,params);
         let randomVal = null;
         if(restaurantIdx != 0 && userInfo.continuity == 0){
           randomVal = rows[Math.floor(Math.random() * rows.length)];
