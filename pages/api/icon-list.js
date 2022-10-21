@@ -3,7 +3,7 @@ const path = require('path')
 const _ = require('lodash')
 
 const handler = async (req, res) => {
-  const svgDir = path.resolve(__dirname, '../../../../utils/webfont-generator/src/svg')
+  const svgDir = path.resolve(__dirname, '../../../../plugins/webfont-generator/src/svg')
   const files = await fs.readdirSync(svgDir)
 
   const iconNames = _.map(files, icon => icon.split('.svg')[0])
