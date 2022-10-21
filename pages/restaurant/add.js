@@ -1,9 +1,11 @@
 import Transition from '~/components/Common/Transition'
 import SimpleLayout from '~/layouts/simple'
 
+import AddRestaurantComponent from '~/components/Restaurant/AddRestaurant'
+
 const AddRestaurant = () => (
   <Transition>
-    Add Restaurant
+    <AddRestaurantComponent />
   </Transition>
 )
 

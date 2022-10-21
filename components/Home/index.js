@@ -39,7 +39,23 @@ const HomeComponent = ({
     router.push('/restaurant/add')
   }
 
-  const eggBreakingAnimation = async () => {
+  const handleClickContent = () => {
+    if (isBreakingEgg) {
+      return
+    }
+
+    if (!myEggs) {
+      router.push('/restaurant/add')
+      return
+    }
+
+    if (myEggs) {
+      setIsBreakingEgg(true)
+      return
+    }
+  }
+
+  const animateEggBreaking = async () => {
     setContent({
       icon: 'broken-egg',
       message: `...`,
@@ -84,25 +100,9 @@ const HomeComponent = ({
 
   useEffect(() => {
     if (isBreakingEgg) {
-      eggBreakingAnimation()
+      animateEggBreaking()
     }
   }, [isBreakingEgg])
-
-  const handleClickContent = () => {
-    if (isBreakingEgg) {
-      return
-    }
-
-    if (!myEggs) {
-      router.push('/restaurant/add')
-      return
-    }
-
-    if (myEggs) {
-      setIsBreakingEgg(true)
-      return
-    }
-  }
 
   return (
     <PageWrap>
@@ -115,9 +115,7 @@ const HomeComponent = ({
       }
 
       <ContentBox>
-        <ContentClickableArea
-          onClick={handleClickContent}
-        >
+        <ContentClickableArea onClick={handleClickContent}>
           <ContentIcon
             icon={content.icon}
             className={ isBreakingEgg && 'shaking' }
