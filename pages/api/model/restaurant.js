@@ -103,7 +103,40 @@ export class Restaurant{
         res.result = randomVal;
       }
     }catch(err){
-      console.log(err);
+      res.errMsg = err;
+      res.success = false;
+      res.status = 400;
+    }
+    return res;
+  }
+
+
+  /**
+   * 푸드 카드 조회
+   * @param {*} userIdx 
+   * @returns 
+   */
+  async getFoodCard(userIdx){
+    let res = {
+      errMsg : "",
+      success : true,
+      result:{
+        list:[],
+        userList:[]
+      },
+      status : 200
+    }
+    try{
+      const sql =`select r.idx , r.name ,r.user_idx as userIdx ,DATE_FORMAT(r.create_date,'%Y-%m-%d') as create_date ,IFNULL(round(AVG(rg.grade),1),0) as grade from restaurant r 
+      left join restaurant_grade rg on rg.restaurant_idx = r.idx 
+      group by r.idx`;
+      const [rows,fields] = await pool.query(sql,[]);
+      res.result.list = rows;
+      res.result.userList = rows.filter(item => item.userIdx == userIdx);
+    }catch(err){
+      res.errMsg = err;
+      res.success = false;
+      res.status = 400;
     }
     return res;
   }
