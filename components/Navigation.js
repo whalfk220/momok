@@ -62,7 +62,12 @@ const Navigation = () => {
             <StyledLink
               className={nav.isActive && 'active'}
             >
-              <StyledIcon icon={nav.icon}/>
+              <StyledIcon
+                icon={nav.icon}
+                className={
+                  (nav.icon === 'home' || nav.icon === 'heart') && 'outlined'
+                }
+              />
             </StyledLink>
           </Link>
         ))
