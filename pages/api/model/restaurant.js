@@ -85,10 +85,16 @@ export class Restaurant{
         res.errMsg = "달걀을 모두 사용하였습니다.";
         res.success = false;
       }else{
+        let where = "";
+        let params = [];
+        if(userInfo.spicy != null){
+          where += " and spicy = ?";
+          params.push(userInfo.spicy);
+        }
         const newEgg = userInfo.egg - 1;
         await this.updateUserEgg(idx,newEgg);
-        const sql = `select r.idx,r.name,r.type,r.popular_menu ,r.address  from restaurant r where spicy = ?;`;
-        const [rows,fields] = await pool.query(sql,[userInfo.spicy]);
+        const sql = `select r.idx,r.name,r.type,r.popular_menu ,r.address  from restaurant r where 1=1 ${where}`;
+        const [rows,fields] = await pool.query(sql,params);
         let randomVal = null;
         if(restaurantIdx != 0 && userInfo.continuity == 0){
           randomVal = rows[Math.floor(Math.random() * rows.length)];
@@ -103,7 +109,40 @@ export class Restaurant{
         res.result = randomVal;
       }
     }catch(err){
-      console.log(err);
+      res.errMsg = err;
+      res.success = false;
+      res.status = 400;
+    }
+    return res;
+  }
+
+
+  /**
+   * 푸드 카드 조회
+   * @param {*} userIdx 
+   * @returns 
+   */
+  async getFoodCard(userIdx){
+    let res = {
+      errMsg : "",
+      success : true,
+      result:{
+        list:[],
+        userList:[]
+      },
+      status : 200
+    }
+    try{
+      const sql =`select r.idx , r.name ,r.user_idx as userIdx ,DATE_FORMAT(r.create_date,'%Y-%m-%d') as create_date ,IFNULL(round(AVG(rg.grade),1),0) as grade from restaurant r 
+      left join restaurant_grade rg on rg.restaurant_idx = r.idx 
+      group by r.idx`;
+      const [rows,fields] = await pool.query(sql,[]);
+      res.result.list = rows;
+      res.result.userList = rows.filter(item => item.userIdx == userIdx);
+    }catch(err){
+      res.errMsg = err;
+      res.success = false;
+      res.status = 400;
     }
     return res;
   }
