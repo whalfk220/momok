@@ -52,7 +52,8 @@ const LoginComponent = ({ title, subtitle }) => (
   <>
     <Title title={title} subtitle={subtitle} />
     <InputBox type="number" />
-    <NextBtn block children="NEXT"></NextBtn>
+    {/* children="NEXT" */}
+    <NextBtn block />
   </>
 );
 
