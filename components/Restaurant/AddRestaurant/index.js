@@ -1,4 +1,7 @@
 import {
+  useRouter,
+} from 'next/router'
+import {
   useState,
 } from 'react'
 import _ from 'lodash'
@@ -10,8 +13,13 @@ import {
 
 import Header from './Header'
 import Form from './Form'
+import {
+  axios,
+} from '~/utils'
 
 const AddRestaurantComponent = () => {
+  const router = useRouter()
+
   const [
     datas,
     setDatas,
@@ -35,7 +43,7 @@ const AddRestaurantComponent = () => {
     {
       order: 3,
       title: '대표메뉴',
-      name: 'popular-menu',
+      name: 'popular_menu',
       value: '',
     },
     {
@@ -48,6 +56,11 @@ const AddRestaurantComponent = () => {
       order: 5,
       title: '맵기',
       name: 'spicy',
+      options: [
+        '안매워요',
+        '매콤해요',
+        '매워요',
+      ],
       value: '',
     },
   ])
@@ -66,23 +79,40 @@ const AddRestaurantComponent = () => {
   }
 
   const handleSubmitData = async () => {
-    const data = _.map(datas, d => ({
-      name: d.name,
-      value: d.value,
-    }))
-
     let notInputted = _.find(datas, d => !d.value.trim())
     if (notInputted) {
       alert(`${notInputted.title}를 입력해주세요`)
       return
     }
 
-    console.log(data)
-    /**
-     * TODO: 등록 및 성공 여부 별로
-     * 1. 이전으로 이동
-     * 2. 오류처리
-     */
+    let data = {}
+    _.forEach(datas, d => {
+      if (d.name === 'spicy') {
+        let spicyIndex = _.findIndex(d.options, option => option === d.value)
+        data[d.name] = spicyIndex + 1
+
+        return
+      }
+
+      data[d.name] = d.value
+    })
+
+    let response
+    try {
+      response = await axios({
+        method: 'POST',
+        url: '/api/restaurant/restaurant',
+        data,
+      })
+
+      alert('등록이 완료되었읍니다.')
+    }
+    catch (err) {
+      alert('등록에 실패하였읍니다.')
+      throw new Error(err)
+    }
+
+    router.back()
   }
 
   return (
