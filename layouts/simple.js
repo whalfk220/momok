@@ -14,9 +14,8 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 import Loading from '~/components/Common/Loading'
-import Navigation from '~/components/Navigation'
 
-const DefaultLayout = ({children}) => {
+const SimpleLayout = ({children}) => {
   const router = useRouter()
 
   const [
@@ -60,10 +59,9 @@ const DefaultLayout = ({children}) => {
           {children}
         </div>
       </AnimatePresence>
-      <Navigation />
       {isLoading && <Loading />}
     </>
   )
 }
 
-export default DefaultLayout
+export default SimpleLayout
