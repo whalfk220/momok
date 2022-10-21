@@ -24,6 +24,7 @@ button,
 input {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 1rem;
+  outline: none;
 }
 a {
   color: inherit;
@@ -31,6 +32,16 @@ a {
 }
 ul {
   list-style: none;
+}
+a,
+button {
+  border: none;
+  background-color: transparent;
+  transition: background-color .2s;
+}
+a:active,
+button:active {
+  background-color: rgba(0, 0, 0, .05);
 }
 
 header {
