@@ -1,8 +1,8 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import Transition from "~/components/Common/Transition";
 import Header from "~/components/Common/Header";
 import Content from "~/components/Common/Content";
-import { TextBtn,IconBox,Qtext,PriceBox } from "~/components/Common/Common";
+import { TextBtn,IconBox,Qtext,PriceBox,NextBtn } from "~/components/Common/Common";
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 
@@ -31,7 +31,7 @@ const handleChange = (event, newValue) => {
 return (
 
   <Transition>
-  <Header icon="icon icon-chicken" />
+  <Header icon="fried-egg" type="StartHeader"><NextBtn>다음에 하기</NextBtn></Header>
   <Content>
     
     <IconBox><i class="icon icon-chicken"></i></IconBox>
@@ -41,7 +41,7 @@ return (
     <PriceBox>{value[0]}원</PriceBox>
     <PriceBox>{value[1]}원</PriceBox>
   </div>
-  <Box sx={{ width: 300 }}>
+  <Box>
     <Slider
       getAriaLabel={() => 'Temperature range'}
       min={0}

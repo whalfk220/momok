@@ -1,13 +1,12 @@
 import Transition from "~/components/Common/Transition";
 import Header from "~/components/Common/Header";
-import LoginComponent from "~/components/Join";
 import Content from "~/components/Common/Content";
-import { BtnBox,IconBox,Qtext } from "~/components/Common/Common";
+import { BtnBox,IconBox,Qtext,NextBtn } from "~/components/Common/Common";
 
 const Question_02 = () => {
   return (
     <Transition>
-      <Header icon="icon icon-chicken" />
+      <Header icon="broken-egg" type="StartHeader"><NextBtn>다음에 하기</NextBtn></Header>
       <Content>
         
         <IconBox><i class="icon icon-chicken"></i></IconBox>

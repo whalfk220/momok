@@ -7,7 +7,7 @@ import { TextBtn,InputBox } from "~/components/Common/Common";
 const Page_02 = () => {
   return (
     <Transition>
-      <Header icon="icon icon-chicken" />
+      <Header icon="icon icon-chicken" type="StartHeader" />
       <Content>
         <JoinComponent title="정보입력" subtitle="더 이상 뭐먹을지 고민하지 마세요!">  
         <InputBox type="text" placeholder="Name"/>
