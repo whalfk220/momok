@@ -40,7 +40,28 @@ const Form = ({
   }
 
   const handleClickAddressBtn = () => {
-    handlePopup(true)
+    navigator.permissions.query({
+      name: 'geolocation',
+    })
+    .then(result => {
+      if (result.state === 'denied') {
+        alert('위치 정보 사용을 허용하면 현재 위치 기준으로 검색 가능합니다.\n위치 정보 사용이 거부되어 회사 위치 기준으로 검색합니다.')
+      }
+      if (result.state === 'prompt') {
+        navigator.geolocation.getCurrentPosition(() => {})
+      }
+      if (result.state !== 'prompt') {
+        handlePopup(true)
+      }
+
+      result.addEventListener('change', () => {
+        if (result.state === 'denied') {
+          alert('위치 정보 사용을 허용하면 현재 위치 기준으로 검색 가능합니다.\n위치 정보 사용이 거부되어 회사 위치 기준으로 검색합니다.')
+        }
+
+        handlePopup(true)
+      })
+    })
   }
 
   return (

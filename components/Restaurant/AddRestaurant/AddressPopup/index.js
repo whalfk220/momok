@@ -25,8 +25,8 @@ const AddressPopup = ({
   setPlace,
 }) => {
   const [
-    userLocation,
-    setUserLocation,
+    userPosition,
+    setUserPosition,
   ] = useState({})
   const [
     searchKeyword,
@@ -47,47 +47,50 @@ const AddressPopup = ({
   }
 
   const handleKeyPressKeyword = e => {
-    if (e.key === 'enter') {
+    if (e.key.toLowerCase() === 'enter') {
       submitSearchKeyword()
     }
   }
 
   const submitSearchKeyword = async () => {
-    const companyLocation = new Kakao.maps.LatLng(userLocation.lat, userLocation.lng)
+    const userLocatn = new Kakao.maps.LatLng(userPosition.lat, userPosition.lng)
     const places = new Kakao.maps.services.Places()
     const callback = (result, status) => {
       if (status !== Kakao.maps.services.Status.OK) {
         return
       }
 
-      /**
-       * 회사 위치 기준 반경 1km 이내 결과 필터링
-       */
       const results = _.filter(result, place => (
         parseInt(place.distance, 10) < 1000
       ))
 
-      console.log(results)
       setSearchResults(results)
     }
 
     places.keywordSearch(searchKeyword, callback, {
-      location: companyLocation,
+      location: userLocatn,
     })
   }
 
   useEffect(() => {
+    // 사용자가 위치정보 사용을 허용했을 경우 사용자 위치 기준,
+    // 거부했을 경우 회사 위치 기준으로 검색
     navigator.geolocation.getCurrentPosition(pos => {
-      setUserLocation({
+      setUserPosition({
         lat: pos.coords.latitude,
         lng: pos.coords.longitude,
+      })
+    }, err => {
+      setUserPosition({
+        lat: 37.50508329231284,
+        lng: 127.05549400986033,
       })
     })
   }, [])
 
   return (
-    <PopupContainer>
-      <PopupInner>
+    <PopupContainer onClick={() => {handlePopup(false)}}>
+      <PopupInner onClick={e => {e.stopPropagation()}}>
         <PopupHeader>
           <Title>주소찾기</Title>
           <CloseButton
