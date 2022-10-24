@@ -30,10 +30,6 @@ const AddRestaurantComponent = () => {
     setKakao,
   ] = useState(null)
   const [
-    place,
-    setPlace,
-  ] = useState({})
-  const [
     isShowAddressPopup,
     setIsShowAddressPopup,
   ] = useState(false)
@@ -137,7 +133,6 @@ const AddRestaurantComponent = () => {
     data.lat = address.x
     data.lng = address.y
     data.palce_id = address.id
-    data.distance = parseInt(address.distance, 10)
 
     let response
     try {
