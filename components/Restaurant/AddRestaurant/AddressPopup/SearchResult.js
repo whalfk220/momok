@@ -18,7 +18,7 @@ const SearchResult = ({
     >
       <ResultName>{place.place_name}</ResultName>
       <ResultAddress>
-        {place.road_address_name} ({place.distance}m)
+        {place.road_address_name} (나와의 거리: {place.distance}m)
       </ResultAddress>
     </SearchResultItemBtn>
   )

@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useState
 } from 'react'
 import _ from 'lodash'
@@ -18,16 +19,15 @@ import {
 
 import SearchResult from './SearchResult'
 
-const COMPANY_POS = {
-  x: 37.50508329231284,
-  y: 127.05549400986033,
-}
-
 const AddressPopup = ({
   Kakao,
   handlePopup,
   setPlace,
 }) => {
+  const [
+    userLocation,
+    setUserLocation,
+  ] = useState({})
   const [
     searchKeyword,
     setSearchKeyword,
@@ -53,7 +53,7 @@ const AddressPopup = ({
   }
 
   const submitSearchKeyword = async () => {
-    const companyLocation = new Kakao.maps.LatLng(COMPANY_POS.x, COMPANY_POS.y)
+    const companyLocation = new Kakao.maps.LatLng(userLocation.lat, userLocation.lng)
     const places = new Kakao.maps.services.Places()
     const callback = (result, status) => {
       if (status !== Kakao.maps.services.Status.OK) {
@@ -75,6 +75,15 @@ const AddressPopup = ({
       location: companyLocation,
     })
   }
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(pos => {
+      setUserLocation({
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude,
+      })
+    })
+  }, [])
 
   return (
     <PopupContainer>
