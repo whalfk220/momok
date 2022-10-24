@@ -8,13 +8,17 @@ import {
   Label,
   Input,
   Select,
+  Button,
 } from '~/styles/restaurant/add/form'
 
 const Form = ({
   title,
   name,
+  type,
   options,
+  dataValue,
   onHandleChangeData,
+  handlePopup,
 }) => {
   const [
     value,
@@ -35,11 +39,22 @@ const Form = ({
     onHandleChangeData(name, value)
   }
 
+  const handleClickAddressBtn = () => {
+    handlePopup(true)
+  }
+
   return (
     <FormWrap>
       <Label htmlFor={name}>{title}</Label>
-      {
-        options ?
+      {type === 'input' &&
+        <Input
+          name={name}
+          id={name}
+          value={value}
+          onChange={handleChangeInput}
+        />
+      }
+      {type === 'select' &&
         <Select
           name={name}
           id={name}
@@ -54,13 +69,15 @@ const Form = ({
             >{option}</option>
           ))}
         </Select>
-        :
-        <Input
+      }
+      {type === 'address' &&
+        <Button
           name={name}
           id={name}
-          value={value}
-          onChange={handleChangeInput}
-        />
+          onClick={handleClickAddressBtn}
+        >
+          {dataValue.id ? dataValue.road_address_name : '주소 찾기'}
+        </Button>
       }
     </FormWrap>
   )
