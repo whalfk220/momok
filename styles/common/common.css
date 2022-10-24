@@ -76,3 +76,9 @@ footer ul li {
     min-height: calc(70vh);
 }
 
+
+.icon {
+  vertical-align: middle;
+  display: inline-block;
+}
+
